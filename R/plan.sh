@@ -11,6 +11,10 @@ pkg_build_deps=(
   core/bzip2
   core/curl
   core/gcc
+  core/icu
+  core/libjpeg-turbo
+  core/libpng
+  core/libtiff
   core/make
   core/pcre
   core/perl
