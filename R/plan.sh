@@ -29,7 +29,8 @@ pkg_lib_dirs=(lib64/R/lib)
 
 do_build() {
     ./configure --prefix="${pkg_prefix}" \
-		--with-x=no
+		--with-x=no \
+	        --enable-memory-profiling
     make
 }
 
