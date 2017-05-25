@@ -29,10 +29,14 @@ pkg_lib_dirs=(
 )
 
 do_build() {
+    export FREETYPE_LIBS="-L$(pkg_path_for core/freetype)/lib -lfreetype"
+    export FREETYPE_CFLAGS="-I$(pkg_path_for core/freetype)/include/freetype2"
+    export FONTCONFIG_LIBS="-L$(pkg_path_for core/fontconfig)/lib -lfontconfig"
+    export FONTCONFIG_CFLAGS="-I$(pkg_path_for core/fontconfig)/include"
     export CFLAGS="-Os ${CFLAGS}"
+
     ./configure --prefix="${pkg_prefix}" \
-                --enable-tee \
-                --enable-xml
+                --disable-xlib
     make
 }
 
