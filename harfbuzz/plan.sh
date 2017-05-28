@@ -6,12 +6,11 @@ pkg_license=('mit')
 pkg_source=http://www.freedesktop.org/software/harfbuzz/release/${pkg_name}-${pkg_version}.tar.bz2
 pkg_shasum=a242206dd119d5e6cc1b2253c116abbae03f9d930cb60b515fb0d248decf89a1
 pkg_deps=(
-  core/glib
-  core/freetype
-  core/fontconfig
-  core/busybox
   core/cairo
   core/expat
+  core/freetype
+  core/fontconfig
+  core/glib
   core/glibc
   core/icu
 )
