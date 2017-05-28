@@ -32,10 +32,13 @@ do_build() {
   export CAIRO_FT_CFLAGS="-I$(pkg_path_for core/cairo)/include/cairo"
   export GLIB_LIBS="-L$(pkg_path_for core/glib)/lib -lglib-2.0"
   export GLIB_CFLAGS="-I$(pkg_path_for core/glib)/include/glib-2.0 -I$(pkg_path_for core/glib)/lib/glib-2.0/include"
+  export GOBJECT_LIBS="-L$(pkg_path_for core/glib)/lib -lgobject-2.0"
+  export GOBJECT_CFLAGS="-I$(pkg_path_for core/glib)/include/glib-2.0 -I$(pkg_path_for core/glib)/include/glib-2.0/gobject -I$(pkg_path_for core/glib)/lib/glib-2.0/include"
   export FONTCONFIG_LIBS="-L$(pkg_path_for core/fontconfig)/lib -lfontconfig"
   export FONTCONFIG_CFLAGS="-I$(pkg_path_for core/fontconfig)/include"
 
-  ./configure --prefix=$pkg_prefix
+  ./configure --prefix=$pkg_prefix \
+	      --with-gobject=yes
   make
 }
 

@@ -28,16 +28,22 @@ pkg_lib_dirs=(
     lib
     lib/cairo
 )
+pkg_pconfig_dirs=(lib/pkgconfig)
 
 do_build() {
     export FREETYPE_LIBS="-L$(pkg_path_for core/freetype)/lib -lfreetype"
     export FREETYPE_CFLAGS="-I$(pkg_path_for core/freetype)/include/freetype2"
     export FONTCONFIG_LIBS="-L$(pkg_path_for core/fontconfig)/lib -lfontconfig"
     export FONTCONFIG_CFLAGS="-I$(pkg_path_for core/fontconfig)/include"
+    export GLIB_LIBS="-L$(pkg_path_for core/glib)/lib -lglib-2.0"
+    export GLIB_CFLAGS="-I$(pkg_path_for core/glib)/include/glib-2.0 -I$(pkg_path_for core/glib)/include/glib-2.0/glib -I$(pkg_path_for core/glib)/include/glib-2.0/gio -I$(pkg_path_for core/glib)/lib/glib-2.0/include"
+    export GOBJECT_LIBS="-L$(pkg_path_for core/glib)/lib -lgobject-2.0"
+    export GOBJECT_CFLAGS="-I$(pkg_path_for core/glib)/include/glib-2.0 -I$(pkg_path_for core/glib)/include/glib-2.0/gobject -I$(pkg_path_for core/glib)/lib/glib-2.0/include"
     export CFLAGS="-Os ${CFLAGS}"
 
     ./configure --prefix="${pkg_prefix}" \
-                --disable-xlib
+                --disable-xlib \
+	        --with-gobject=yes
     make
 }
 

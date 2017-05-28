@@ -7,18 +7,26 @@ pkg_source="http://ftp.gnome.org/pub/GNOME/sources/pango/1.40/$pkg_name-$pkg_ver
 pkg_shasum="ca152b7383a1e9f7fd74ae96023dc6770dc5043414793bfe768ff06b6759e573"
 pkg_deps=(
     core/cairo
+    core/bzip2
     core/coreutils
     core/fontconfig
     core/freetype
     core/glib
+    core/glibc
     core/harfbuzz
+    core/libpng
+    core/pcre
+    core/pixman
+    core/zlib
 )
 pkg_build_deps=(
-    core/busybox
     core/diffutils
+    core/expat
     core/file
     core/gcc
+    core/libffi
     core/make
+    core/patch
     core/perl
     core/pkg-config
     core/util-linux
@@ -35,20 +43,20 @@ do_prepare() {
 }
 
 do_build() {
-    export CAIRO_LIBS="-L$(pkg_path_for core/cairo)/lib"
+    export CAIRO_LIBS="-L$(pkg_path_for core/cairo)/lib -lcairo"
     export CAIRO_CFLAGS="-I$(pkg_path_for core/cairo)/include/cairo"
     export FONTCONFIG_LIBS="-L$(pkg_path_for core/fontconfig)/lib -lfontconfig"
     export FONTCONFIG_CFLAGS="-I$(pkg_path_for core/fontconfig)/include"
     export FREETYPE_LIBS="-L$(pkg_path_for core/freetype)/lib -lfreetype"
     export FREETYPE_CFLAGS="-I$(pkg_path_for core/freetype)/include/freetype2"
-    export GLIB_LIBS="-L$(pkg_path_for core/glib)/lib -lglib-2.0"
+    export GLIB_LIBS="-L$(pkg_path_for core/glib)/lib -lglib-2.0 -lgobject-2.0 -lgio-2.0"
     export GLIB_CFLAGS="-I$(pkg_path_for core/glib)/include/glib-2.0 -I$(pkg_path_for core/glib)/include/glib-2.0/gobject -I$(pkg_path_for core/glib)/include/glib-2.0/glib -I$(pkg_path_for core/glib)/include/glib-2.0/gio -I$(pkg_path_for core/glib)/lib/glib-2.0/include"
-    export HARFBUZZ_LIBS="-L$(pkg_path_for core/harfbuzz)/lib"
+    export HARFBUZZ_LIBS="-L$(pkg_path_for core/harfbuzz)/lib -lharfbuzz"
     export HARFBUZZ_CFLAGS="-I$(pkg_path_for core/harfbuzz)/include/harfbuzz"
 
     fix_interpreter "$(pkg_path_for core/glib)/bin/glib-mkenums" core/coreutils bin/env
 
-    ./configure --prefix="$pkg_prefix" > configure.out
+    ./configure --prefix="$pkg_prefix"
     make
 }
 

@@ -7,6 +7,10 @@ pkg_source="https://cran.r-project.org/src/base/R-3/${pkg_name}-${pkg_version}.t
 pkg_shasum="288e9ed42457c47720780433b3d5c3c20983048b789291cc6a7baa11f9428b91"
 pkg_upstream_url="https://www.r-project.org"
 pkg_description="R is a free software environment for statistical computing and graphics."
+pkg__deps=(
+  core/coreutils
+  core/texinfo
+)
 pkg_build_deps=(
   core/bzip2
   core/cairo
@@ -19,11 +23,11 @@ pkg_build_deps=(
   core/libpng
   core/libtiff
   core/make
+  core/pango
   core/pcre
   core/perl
   core/pkg-config
   core/readline
-  core/texinfo
   core/xz
   core/zlib
 )
@@ -32,14 +36,9 @@ pkg_include_dirs=(lib64/R/include)
 pkg_lib_dirs=(lib64/R/lib)
 
 do_build() {
-    export CAIRO_LIBS="-L$(pkg_path_for core/cairo)/lib"
-    export CAIRO_CFLAGS="-I$(pkg_path_for core/cairo)/include/cairo"
-    #export PANGO_LIBS="-L$(pkg_path_for core/pango)/lib"
-    #export PANGO_CFLAGS="-I$(pkg_path_for core/pango)/include/pango"
-
     ./configure --prefix="${pkg_prefix}" \
 		--with-x=no \
-	        --enable-memory-profiling > results.txt
+	        --enable-memory-profiling > result.txt
     make
 }
 
