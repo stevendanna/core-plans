@@ -8,24 +8,25 @@ pkg_license=(
 )
 pkg_source="https://www.cairographics.org/releases/${pkg_name}-${pkg_version}.tar.xz"
 pkg_shasum="d1f2d98ae9a4111564f6de4e013d639cf77155baf2556582295a0f00a9bc5e20"
-pkg_build_deps=(
-    core/diffutils
+pkg_deps=(
     core/fontconfig
     core/freetype
-    core/gcc
     core/glib
     core/libpng
-    core/make
     core/pixman
+    core/zlib    
+)
+pkg_build_deps=(
+    core/diffutils
+    core/gcc
+    core/make
     core/pkg-config
-    core/zlib
 )
 pkg_bin_dirs=(bin)
 pkg_include_dirs=(include/cairo)
 pkg_lib_dirs=(
     lib
     lib/cairo
-    lib/pkgconfig
 )
 
 do_build() {
